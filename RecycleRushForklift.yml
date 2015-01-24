@@ -395,7 +395,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: DrivePlatform}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: false}
-  - Name: ActivateJawVacuum
+  - Name: ActivateVacuum
     Base: Command
     Children: []
     Properties:
@@ -403,7 +403,7 @@ Children:
         name: Requires, type: Subsystem, validators: null, value: Vacuum}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: ActivateArmVacuum
+  - Name: DeactivateVacuum
     Base: Command
     Children: []
     Properties:

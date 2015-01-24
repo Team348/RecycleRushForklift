@@ -17,9 +17,9 @@ import org.usfirst.frc348.RecycleRushForklift.Robot;
 /**
  *
  */
-public class  ActivateArmVacuum extends Command {
+public class  DeactivateVacuum extends Command {
 
-    public ActivateArmVacuum() {
+    public DeactivateVacuum() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 

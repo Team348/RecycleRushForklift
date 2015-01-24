@@ -56,5 +56,5 @@ public class Vacuum extends Subsystem {
     
     public void ActivateJawVacuum() {
     }
-    }
+}
 
