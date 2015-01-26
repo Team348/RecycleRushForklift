@@ -119,7 +119,7 @@ Children:
       Continuous: !!robotbuilder.data.properties.BooleanProperty {default: false,
         name: Continuous, validators: null, value: false}
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: None}
+        name: Default Command, type: Command, validators: null, value: ManualElevatorCommand}
       Maximum Output: !!robotbuilder.data.properties.DoubleProperty {default: 1, name: Maximum Output,
         validators: null, value: 1.0}
       Limit Input: !!robotbuilder.data.properties.BooleanProperty {default: false,
