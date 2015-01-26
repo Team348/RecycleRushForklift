@@ -115,5 +115,6 @@ public class RobotMap {
         
         driveSystem = new RobotDrive(driveMotorFrontLeft, driveMotorBackLeft, driveMotorFrontRight, driveMotorBackRight);
         
+        prefs = Preferences.getInstance();
     }
 }
