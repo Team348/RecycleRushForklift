@@ -47,6 +47,17 @@ public class Elevator extends PIDSubsystem {
         // setSetpoint() -  Sets where the PID controller should move the system
         //                  to
         // enable() - Enables the PID controller.
+       
+        double p = RobotMap.prefs.getDouble("Elevator_P", 1.0);
+        double i = RobotMap.prefs.getDouble("Elevator_I", 0.0);
+        double d = RobotMap.prefs.getDouble("Elevator_D", 0.0);
+
+        double distPerPulse = RobotMap.prefs.getDouble("Elevator_DistancePerPulse", 0.025);
+        
+        elevatorEncoder.setDistancePerPulse(distPerPulse);
+        
+       getPIDController().setPID(p, i, d);
+       enable();
     }
     
     public void initDefaultCommand() {
