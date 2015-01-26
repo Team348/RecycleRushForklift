@@ -45,7 +45,7 @@ Children:
           validators: &id011 [DigitalChannel]
           value: '0'
         Reverse Direction: !!robotbuilder.data.properties.BooleanProperty {default: false,
-          name: Reverse Direction, validators: null, value: false}
+          name: Reverse Direction, validators: null, value: true}
     - Name: ElevatorMotor1
       Base: Speed Controller
       Children: []
