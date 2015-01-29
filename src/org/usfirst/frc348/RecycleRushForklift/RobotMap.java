@@ -89,15 +89,6 @@ public class RobotMap {
         
         drivePlatformTotePositionSensorLeft = new DigitalInput(8);
         LiveWindow.addSensor("DrivePlatform", "TotePositionSensorLeft", drivePlatformTotePositionSensorLeft);
-        eclipse.buildId=debbuild
-java.version=1.7.0_65
-java.vendor=Oracle Corporation
-BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
-Command-line arguments:  -os linux -ws gtk -arch x86_64
-
-Info
-Thu Jan 29 17:42:52 EST 2015
-Installing java if necessary
 
         drivePlatformTotePositionSensorRight = new DigitalInput(9);
         LiveWindow.addSensor("DrivePlatform", "TotePositionSensorRight", drivePlatformTotePositionSensorRight);
