@@ -8,10 +8,10 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-package org.usfirst.frc348.RecycleRush2015.subsystems;
+package org.usfirst.frc348.RecycleRushForklift.subsystems;
 
-import org.usfirst.frc348.RecycleRush2015.RobotMap;
-import org.usfirst.frc348.RecycleRush2015.commands.*;
+import org.usfirst.frc348.RecycleRushForklift.RobotMap;
+import org.usfirst.frc348.RecycleRushForklift.commands.*;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.I2C;
