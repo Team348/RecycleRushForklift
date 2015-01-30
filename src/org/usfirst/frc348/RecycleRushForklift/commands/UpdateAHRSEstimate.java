@@ -41,11 +41,18 @@ public class  UpdateAHRSEstimate extends Command {
     	Vector3D mag = Robot.attitudeAndHeadingReferenceSystem.ReadMagneticField();
     	Vector3D rot = Robot.attitudeAndHeadingReferenceSystem.ReadAngularVelocity();
     	
-    	double headingDegrees = Math.atan2(mag.getY(), mag.getX()) * 180.0 / Math.PI;
-    	double headingDegreesCartoConvention = 90 - headingDegrees;
+    	if(mag != null)
+    	{
+	    	double headingDegrees = Math.atan2(mag.getY(), mag.getX()) * 180.0 / Math.PI;
+	    	double headingDegreesCartoConvention = 90 - headingDegrees;
+	    	
+	    	SmartDashboard.putNumber("Magnetic Heading (deg)", headingDegreesCartoConvention);
+    	}
     	
-    	SmartDashboard.putNumber("Magnetic Heading (deg)", headingDegreesCartoConvention);
-    	SmartDashboard.putNumber("Angular Velocity Z (rad/s)", rot.getZ());
+    	if(rot != null)
+    	{
+    		SmartDashboard.putNumber("Angular Velocity Z (rad/s)", rot.getZ());
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

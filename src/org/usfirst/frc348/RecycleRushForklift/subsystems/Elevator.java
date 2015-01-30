@@ -57,7 +57,7 @@ public class Elevator extends PIDSubsystem {
         elevatorEncoder.setDistancePerPulse(distPerPulse);
         
        getPIDController().setPID(p, i, d);
-       enable();
+       //enable();
     }
     
     public void initDefaultCommand() {
