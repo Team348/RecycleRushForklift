@@ -348,7 +348,7 @@ Children:
         default: 1
         name: Number
         validators: &id024 [Joystick]
-        value: '0'
+        value: '2'
     Base: Joystick
     Name: PilotLeftJoystick
   - Children:
@@ -417,7 +417,7 @@ Children:
         default: 1
         name: Number
         validators: *id024
-        value: '2'
+        value: '0'
     Base: Joystick
     Name: CopilotJoystick
   Properties: {}

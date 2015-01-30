@@ -12,6 +12,8 @@
 package org.usfirst.frc348.RecycleRushForklift.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc348.RecycleRushForklift.Robot;
 
 /**
@@ -35,7 +37,7 @@ public class  ManualElevatorCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double unscaled = Robot.oi.getCopilotJoystick().getZ();
+    	double unscaled = Robot.oi.getCopilotJoystick().getY();
     	double inches = (unscaled + 1.0) * (60.0 / 2.0);
     	
     	Robot.elevator.setSetpoint(inches);
