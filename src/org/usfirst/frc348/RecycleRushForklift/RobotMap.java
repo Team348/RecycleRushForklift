@@ -12,7 +12,9 @@
 package org.usfirst.frc348.RecycleRushForklift;
     
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType; import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import java.util.Vector;
@@ -114,6 +116,10 @@ public class RobotMap {
         driveMotorBackRight = new CANTalon(4);
         
         driveSystem = new RobotDrive(driveMotorFrontLeft, driveMotorBackLeft, driveMotorFrontRight, driveMotorBackRight);
+        driveSystem.setInvertedMotor(MotorType.kFrontLeft, true);
+        driveSystem.setInvertedMotor(MotorType.kFrontRight, true);
+        driveSystem.setInvertedMotor(MotorType.kRearLeft, false);
+        driveSystem.setInvertedMotor(MotorType.kRearRight, true);
         
         prefs = Preferences.getInstance();
     }
