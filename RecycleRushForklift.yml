@@ -1,18 +1,10 @@
 Version 1.5
 
 ---
-Name: RecycleRushForklift
-Base: Robot
 Children:
-- Name: Subsystems
-  Base: Subsystems
-  Children:
-  - Name: Elevator
-    Base: PID Subsystem
-    Children:
-    - Name: ElevatorEncoder
-      Base: Quadrature Encoder
-      Children: []
+- Children:
+  - Children:
+    - Children: []
       Properties:
         PID Source: !!robotbuilder.data.properties.ChoicesProperty
           choices: &id006 [kDistance, kRate]
@@ -21,7 +13,7 @@ Children:
           validators: null
           value: kDistance
         Distance Per Pulse: !!robotbuilder.data.properties.DoubleProperty {default: 1,
-          name: Distance Per Pulse, validators: null, value: 0.005}
+          name: Distance Per Pulse, validators: null, value: 0.0082677}
         Encoding Type: !!robotbuilder.data.properties.ChoicesProperty
           choices: &id007 [k4X, k2X, k1X]
           default: k4X
@@ -46,9 +38,9 @@ Children:
           value: '0'
         Reverse Direction: !!robotbuilder.data.properties.BooleanProperty {default: false,
           name: Reverse Direction, validators: null, value: true}
-    - Name: ElevatorMotor1
-      Base: Speed Controller
-      Children: []
+      Base: Quadrature Encoder
+      Name: ElevatorEncoder
+    - Children: []
       Properties:
         Type: !!robotbuilder.data.properties.ChoicesProperty
           choices: &id001 [Victor, Jaguar, Talon, VictorSP, TalonSRX]
@@ -63,9 +55,9 @@ Children:
           name: Output Channel (PWM)
           validators: &id003 [PWMOutput]
           value: '1'
-    - Name: ElevatorMotor2
       Base: Speed Controller
-      Children: []
+      Name: ElevatorMotor1
+    - Children: []
       Properties:
         Type: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
@@ -79,9 +71,9 @@ Children:
           name: Output Channel (PWM)
           validators: *id003
           value: '2'
-    - Name: ElevatorBottomLimitSwitch
-      Base: Limit Switch
-      Children: []
+      Base: Speed Controller
+      Name: ElevatorMotor2
+    - Children: []
       Properties:
         Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
           choices: &id004 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
@@ -91,9 +83,9 @@ Children:
           name: Input Channel (Digital)
           validators: &id005 [DigitalChannel]
           value: '5'
-    - Name: ElevatorTopLimitSwitch
       Base: Limit Switch
-      Children: []
+      Name: ElevatorBottomLimitSwitch
+    - Children: []
       Properties:
         Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
           choices: *id004
@@ -101,6 +93,8 @@ Children:
           name: Input Channel (Digital)
           validators: *id005
           value: '4'
+      Base: Limit Switch
+      Name: ElevatorTopLimitSwitch
     Properties:
       D: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: D, validators: null,
         value: 0.0}
@@ -140,12 +134,10 @@ Children:
         value: 1.0}
       Maximum Input: !!robotbuilder.data.properties.DoubleProperty {default: 5, name: Maximum Input,
         validators: null, value: 60.0}
-  - Name: Gripper
     Base: PID Subsystem
-    Children:
-    - Name: GripperEncoder
-      Base: Quadrature Encoder
-      Children: []
+    Name: Elevator
+  - Children:
+    - Children: []
       Properties:
         PID Source: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id006
@@ -154,7 +146,7 @@ Children:
           validators: null
           value: kDistance
         Distance Per Pulse: !!robotbuilder.data.properties.DoubleProperty {default: 1,
-          name: Distance Per Pulse, validators: null, value: 0.005}
+          name: Distance Per Pulse, validators: null, value: 0.0082677}
         Encoding Type: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id007
           default: k4X
@@ -175,9 +167,9 @@ Children:
           value: '2'
         Reverse Direction: !!robotbuilder.data.properties.BooleanProperty {default: false,
           name: Reverse Direction, validators: null, value: false}
-    - Name: GripperMotor
-      Base: Speed Controller
-      Children: []
+      Base: Quadrature Encoder
+      Name: GripperEncoder
+    - Children: []
       Properties:
         Type: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
@@ -191,9 +183,9 @@ Children:
           name: Output Channel (PWM)
           validators: *id003
           value: '3'
-    - Name: GripperOpenLimitSwitch
-      Base: Limit Switch
-      Children: []
+      Base: Speed Controller
+      Name: GripperMotor
+    - Children: []
       Properties:
         Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
           choices: *id004
@@ -201,9 +193,9 @@ Children:
           name: Input Channel (Digital)
           validators: *id005
           value: '6'
-    - Name: GripperClosedLimitSwitch
       Base: Limit Switch
-      Children: []
+      Name: GripperOpenLimitSwitch
+    - Children: []
       Properties:
         Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
           choices: *id004
@@ -211,6 +203,8 @@ Children:
           name: Input Channel (Digital)
           validators: *id005
           value: '7'
+      Base: Limit Switch
+      Name: GripperClosedLimitSwitch
     Properties:
       D: !!robotbuilder.data.properties.DoubleProperty {default: 0, name: D, validators: null,
         value: 0.0}
@@ -250,12 +244,10 @@ Children:
         value: 1.0}
       Maximum Input: !!robotbuilder.data.properties.DoubleProperty {default: 5, name: Maximum Input,
         validators: null, value: 36.0}
-  - Name: DrivePlatform
-    Base: Subsystem
-    Children:
-    - Name: UltrasonicRangeSensorForward
-      Base: Analog Input
-      Children: []
+    Base: PID Subsystem
+    Name: Gripper
+  - Children:
+    - Children: []
       Properties:
         Input Channel (Analog): !!robotbuilder.data.properties.ChoicesProperty
           choices: &id016 ['0', '1', '2', '3', '4', '5', '6', '7']
@@ -263,9 +255,9 @@ Children:
           name: Input Channel (Analog)
           validators: &id017 [AnalogInput]
           value: '1'
-    - Name: TotePositionSensorLeft
-      Base: Digital Input
-      Children: []
+      Base: Analog Input
+      Name: UltrasonicRangeSensorForward
+    - Children: []
       Properties:
         Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
           choices: &id014 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
@@ -275,9 +267,9 @@ Children:
           name: Input Channel (Digital)
           validators: &id015 [DigitalChannel]
           value: '8'
-    - Name: TotePositionSensorRight
       Base: Digital Input
-      Children: []
+      Name: TotePositionSensorLeft
+    - Children: []
       Properties:
         Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
           choices: *id014
@@ -285,15 +277,15 @@ Children:
           name: Input Channel (Digital)
           validators: *id015
           value: '9'
+      Base: Digital Input
+      Name: TotePositionSensorRight
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: ManualDriveCommand}
-  - Name: Vacuum
     Base: Subsystem
-    Children:
-    - Name: VacuumPumpMotor
-      Base: Speed Controller
-      Children: []
+    Name: DrivePlatform
+  - Children:
+    - Children: []
       Properties:
         Type: !!robotbuilder.data.properties.ChoicesProperty
           choices: *id001
@@ -307,9 +299,9 @@ Children:
           name: Output Channel (PWM)
           validators: *id003
           value: '0'
-    - Name: VacuumSensor
-      Base: Analog Input
-      Children: []
+      Base: Speed Controller
+      Name: VacuumPumpMotor
+    - Children: []
       Properties:
         Input Channel (Analog): !!robotbuilder.data.properties.ChoicesProperty
           choices: *id016
@@ -317,9 +309,9 @@ Children:
           name: Input Channel (Analog)
           validators: *id017
           value: '0'
-    - Name: VacuumJawValveServo
-      Base: Servo
-      Children: []
+      Base: Analog Input
+      Name: VacuumSensor
+    - Children: []
       Properties:
         Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
           choices: &id018 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
@@ -328,9 +320,9 @@ Children:
           name: Output Channel (PWM)
           validators: &id019 [PWMOutput]
           value: '4'
-    - Name: VacuumArmValveServo
       Base: Servo
-      Children: []
+      Name: VacuumJawValveServo
+    - Children: []
       Properties:
         Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
           choices: *id018
@@ -338,16 +330,18 @@ Children:
           name: Output Channel (PWM)
           validators: *id019
           value: '5'
+      Base: Servo
+      Name: VacuumArmValveServo
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Default Command, type: Command, validators: null, value: None}
+    Base: Subsystem
+    Name: Vacuum
   Properties: {}
-- Name: Operator Interface
-  Base: OI
-  Children:
-  - Name: PilotLeftJoystick
-    Base: Joystick
-    Children: []
+  Base: Subsystems
+  Name: Subsystems
+- Children:
+  - Children: []
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
         choices: &id023 ['0', '1', '2', '3', '4', '5']
@@ -355,12 +349,10 @@ Children:
         name: Number
         validators: &id024 [Joystick]
         value: '0'
-  - Name: PilotRightJoystick
     Base: Joystick
-    Children:
-    - Name: VacuumOnButton
-      Base: Joystick Button
-      Children: []
+    Name: PilotLeftJoystick
+  - Children:
+    - Children: []
       Properties:
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
@@ -383,9 +375,9 @@ Children:
           name: When to Run
           validators: null
           value: whenPressed
-    - Name: VacuumOffButton
       Base: Joystick Button
-      Children: []
+      Name: VacuumOnButton
+    - Children: []
       Properties:
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
@@ -407,6 +399,8 @@ Children:
           name: When to Run
           validators: null
           value: whenPressed
+      Base: Joystick Button
+      Name: VacuumOffButton
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
         choices: *id023
@@ -414,9 +408,9 @@ Children:
         name: Number
         validators: *id024
         value: '1'
-  - Name: CopilotJoystick
     Base: Joystick
-    Children: []
+    Name: PilotRightJoystick
+  - Children: []
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
         choices: *id023
@@ -424,51 +418,55 @@ Children:
         name: Number
         validators: *id024
         value: '2'
+    Base: Joystick
+    Name: CopilotJoystick
   Properties: {}
-- Name: Commands
-  Base: Commands
-  Children:
-  - Name: Autonomous Command
-    Base: Command
-    Children: []
+  Base: OI
+  Name: Operator Interface
+- Children:
+  - Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: None}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: ManualDriveCommand
     Base: Command
-    Children: []
+    Name: Autonomous Command
+  - Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: DrivePlatform}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: false}
-  - Name: ActivateVacuum
     Base: Command
-    Children: []
+    Name: ManualDriveCommand
+  - Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Vacuum}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: DeactivateVacuum
     Base: Command
-    Children: []
+    Name: ActivateVacuum
+  - Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Vacuum}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: true}
-  - Name: ManualElevatorCommand
     Base: Command
-    Children: []
+    Name: DeactivateVacuum
+  - Children: []
     Properties:
       Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
         name: Requires, type: Subsystem, validators: null, value: Elevator}
       Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
         name: Button on SmartDashboard, validators: null, value: false}
+    Base: Command
+    Name: ManualElevatorCommand
   Properties: {}
+  Base: Commands
+  Name: Commands
 Properties:
   Autonomous Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
     name: Autonomous Command, type: Command, validators: null, value: Autonomous Command}
@@ -488,3 +486,5 @@ Properties:
     validators: null, value: 348}
   Export Commands: !!robotbuilder.data.properties.BooleanProperty {default: true,
     name: Export Commands, validators: null, value: true}
+Base: Robot
+Name: RecycleRushForklift
