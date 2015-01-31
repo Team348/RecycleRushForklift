@@ -79,7 +79,7 @@ public class RobotMap {
         
         gripperGripperEncoder = new Encoder(2, 3, false, EncodingType.k4X);
         LiveWindow.addSensor("Gripper", "GripperEncoder", gripperGripperEncoder);
-        gripperGripperEncoder.setDistancePerPulse(0.0082677);
+        gripperGripperEncoder.setDistancePerPulse(0.0165354);
         gripperGripperEncoder.setPIDSourceParameter(PIDSourceParameter.kDistance);
         gripperGripperMotor = new Talon(3);
         LiveWindow.addActuator("Gripper", "GripperMotor", (Talon) gripperGripperMotor);
