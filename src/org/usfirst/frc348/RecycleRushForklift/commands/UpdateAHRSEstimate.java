@@ -47,6 +47,10 @@ public class  UpdateAHRSEstimate extends Command {
 	    	double headingDegreesCartoConvention = 90 - headingDegrees;
 	    	
 	    	SmartDashboard.putNumber("Magnetic Heading (deg)", headingDegreesCartoConvention);
+	    	SmartDashboard.putBoolean("Magnetometer OK?", true);
+    	}
+    	else {
+    		SmartDashboard.putBoolean("Magnetometer OK?", false);
     	}
     	
     	if(rot != null)
