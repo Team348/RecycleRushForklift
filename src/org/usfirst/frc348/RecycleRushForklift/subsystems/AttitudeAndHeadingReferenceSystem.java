@@ -367,14 +367,8 @@ public class AttitudeAndHeadingReferenceSystem extends Subsystem {
     	
     	byte[] received = new byte[n];
     	
-    	if(sensor.transaction(toSend, 1, received, n)) {
-    		// transaction aborted
-    		return null;
-    	}
-    	else {
-    		// success
-    		return received;
-    	}
+    	sensor.transaction(toSend, 1, received, n);
+    	return received;
     }
     
     private Vector3D ReadScaleTransform(double scale, byte[] littleEndianBytes)

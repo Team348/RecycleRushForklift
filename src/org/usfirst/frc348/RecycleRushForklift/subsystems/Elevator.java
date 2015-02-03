@@ -92,4 +92,32 @@ public class Elevator extends PIDSubsystem {
       elevatorMotor2.pidWrite(output);
 
     }
+    
+    public boolean isAtLowerLimit(){
+    	return (elevatorBottomLimitSwitch.get());
+    	
+    }
+    
+    public boolean isAtUpperLimit(){
+    	return (elevatorTopLimitSwitch.get());  	
+    }
+    
+    public void resetEncoder(){
+    	elevatorEncoder.reset();
+    }
+    
+    public void driveDownSlowly(){
+    	setSpeed(-0.1);
+    }
+    
+    public void setSpeed(double speed){
+    	elevatorMotor1.set(speed);
+    	elevatorMotor2.set(speed);
+    }
+    
+    public void stop(){
+    	setSpeed(0);
+    }
+    
+    
 }
