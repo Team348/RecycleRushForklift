@@ -85,6 +85,7 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+        vacuum.InitializeTimer();
     }
 
     /**
@@ -100,6 +101,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        vacuum.InitializeTimer();
     }
 
     /**
@@ -107,6 +109,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        vacuum.CheckIfTimeToTurnOff();
     }
 
     /**

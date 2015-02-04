@@ -17,9 +17,9 @@ import org.usfirst.frc348.RecycleRushForklift.Robot;
 /**
  *
  */
-public class  ActivateVacuum extends Command {
+public class  GrabPartCommand extends Command {
 
-    public ActivateVacuum() {
+    public GrabPartCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 
@@ -35,7 +35,7 @@ public class  ActivateVacuum extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.vacuum.ActivatePump();
+    	Robot.vacuum.GrabPart();
     }
 
     // Make this return true when this Command no longer needs to run execute()
