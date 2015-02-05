@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc348.RecycleRushForklift.commands.*;
 import org.usfirst.frc348.RecycleRushForklift.subsystems.*;
 
@@ -110,6 +112,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         vacuum.CheckIfTimeToTurnOff();
+        UpdateSmartDashboard();
     }
 
     /**
@@ -117,5 +120,13 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+        UpdateSmartDashboard();
+    }
+    
+    private void UpdateSmartDashboard()
+    {
+    	SmartDashboard.putNumber("GripperPosition", Robot.gripper.getPosition());
+    	SmartDashboard.putNumber("ElevatorPosition", Robot.elevator.getPosition());
+    	SmartDashboard.putNumber("ElevatorSetpoint", Robot.elevator.getSetpoint());
     }
 }

@@ -37,10 +37,15 @@ public class  ManualElevatorCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double unscaled = Robot.oi.getCopilotJoystick().getY();
-    	double inches = (unscaled + 1.0) * (60.0 / 2.0);
+    	
+    	double max = 52;
+    	double min = 0;
+    	
+    	double unscaled = Robot.oi.getCopilotJoystick().getZ();
+    	double inches = ((unscaled + 1.0) * ((max - min) / 2.0)) + min;
     	
     	Robot.elevator.setSetpoint(inches);
+    	Robot.elevator.enable();
     }
 
     // Make this return true when this Command no longer needs to run execute()

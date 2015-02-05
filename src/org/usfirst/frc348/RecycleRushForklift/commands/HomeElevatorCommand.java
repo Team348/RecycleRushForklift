@@ -33,10 +33,12 @@ public class  HomeElevatorCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	finished = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.elevator.disable();
     	if (Robot.elevator.isAtLowerLimit()){
     		Robot.elevator.stop();
     		Robot.elevator.resetEncoder();
