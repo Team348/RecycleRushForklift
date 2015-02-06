@@ -84,25 +84,25 @@ public class Vacuum extends Subsystem {
     
     public void OpenForkValve()
     {
-    	double forkOpenPosition = RobotMap.prefs.getDouble("Vacuum_ForkOpenPosition", 0);
+    	double forkOpenPosition = RobotMap.prefs.getDouble("Vacuum_ForkOpenPosition", 0.5);
     	vacuumForkValveServo.setPosition(forkOpenPosition);
     }
     
     public void CloseForkValve()
     {
-    	double forkClosedPosition = RobotMap.prefs.getDouble("Vacuum_ForkClosedPosition", 0);
+    	double forkClosedPosition = RobotMap.prefs.getDouble("Vacuum_ForkClosedPosition", 0.5);
     	vacuumForkValveServo.setPosition(forkClosedPosition);
     }
     
     public void OpenFrontValve()
     {
-    	double frontOpenPosition = RobotMap.prefs.getDouble("Vacuum_FrontOpenPosition", 0);
+    	double frontOpenPosition = RobotMap.prefs.getDouble("Vacuum_FrontOpenPosition", 0.5);
     	vacuumFrontValveServo.setPosition(frontOpenPosition);
     }
     
     public void CloseFrontValve()
     {
-    	double frontClosedPosition = RobotMap.prefs.getDouble("Vacuum_FrontClosedPosition", 0);
+    	double frontClosedPosition = RobotMap.prefs.getDouble("Vacuum_FrontClosedPosition", 0.5);
     	vacuumFrontValveServo.setPosition(frontClosedPosition);
     }
     

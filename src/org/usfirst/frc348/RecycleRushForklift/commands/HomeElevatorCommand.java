@@ -11,6 +11,7 @@
 
 package org.usfirst.frc348.RecycleRushForklift.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc348.RecycleRushForklift.Robot;
 
@@ -19,7 +20,9 @@ import org.usfirst.frc348.RecycleRushForklift.Robot;
  */
 public class  HomeElevatorCommand extends Command {
 
+	private boolean delayStarted = false;
 	private boolean finished = false;
+	private Timer bottomWaitTimer = new Timer();
 	
     public HomeElevatorCommand() {
         // Use requires() here to declare subsystem dependencies
@@ -33,16 +36,27 @@ public class  HomeElevatorCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	delayStarted = false;
     	finished = false;
+    	bottomWaitTimer.stop();
+    	bottomWaitTimer.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.elevator.disable();
-    	if (Robot.elevator.isAtLowerLimit()){
+    	if(delayStarted)
+    	{
+    		if(bottomWaitTimer.get() > 0.3)
+    		{
+    			Robot.elevator.resetEncoder();
+    			finished = true;
+    		}
+    	}
+    	else if (Robot.elevator.isAtLowerLimit()){
     		Robot.elevator.stop();
-    		Robot.elevator.resetEncoder();
-    		finished = true;
+    		delayStarted = true;
+    		bottomWaitTimer.start();
     	}
     	else {
     		Robot.elevator.driveDownSlowly();

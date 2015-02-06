@@ -95,6 +95,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        ServiceSubsystems();
     }
 
     public void teleopInit() {
@@ -104,6 +105,7 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
         vacuum.InitializeTimer();
+        elevator.SetDesiredPositionToCurrent();
     }
 
     /**
@@ -113,6 +115,7 @@ public class Robot extends IterativeRobot {
         Scheduler.getInstance().run();
         vacuum.CheckIfTimeToTurnOff();
         UpdateSmartDashboard();
+        ServiceSubsystems();
     }
 
     /**
@@ -121,6 +124,8 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
         LiveWindow.run();
         UpdateSmartDashboard();
+        ServiceSubsystems();
+        elevator.SetDesiredPositionToCurrent();
     }
     
     private void UpdateSmartDashboard()
@@ -128,5 +133,11 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("GripperPosition", Robot.gripper.getPosition());
     	SmartDashboard.putNumber("ElevatorPosition", Robot.elevator.getPosition());
     	SmartDashboard.putNumber("ElevatorSetpoint", Robot.elevator.getSetpoint());
+    }
+    
+    private void ServiceSubsystems()
+    {
+    	elevator.ServiceSlewRateLimiter();
+    	gripper.ServiceCurrentMonitoring();
     }
 }

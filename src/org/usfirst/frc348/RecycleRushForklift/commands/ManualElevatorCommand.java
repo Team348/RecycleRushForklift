@@ -44,7 +44,7 @@ public class  ManualElevatorCommand extends Command {
     	double unscaled = Robot.oi.getCopilotJoystick().getZ();
     	double inches = ((unscaled + 1.0) * ((max - min) / 2.0)) + min;
     	
-    	Robot.elevator.setSetpoint(inches);
+    	Robot.elevator.SetUltimateDesiredPosition(inches);
     	Robot.elevator.enable();
     }
 
