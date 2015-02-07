@@ -113,7 +113,7 @@ public class Vacuum extends Subsystem {
     
     public void CheckIfTimeToTurnOff()
     {
-    	if(lastModeCommandedTimer.get() > 5)
+    	if(lastModeCommandedTimer.get() > 1.5)
     	{
     		ActivateOffMode();
     	}
