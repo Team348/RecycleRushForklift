@@ -376,7 +376,7 @@ Children:
           default: '1'
           name: Button
           validators: null
-          value: '2'
+          value: '3'
         Command: !!robotbuilder.data.properties.TypeSelectionProperty
           default: None
           name: Command
@@ -391,6 +391,30 @@ Children:
           value: whenPressed
       Base: Joystick Button
       Name: OpenGripperButton
+    - Children: []
+      Properties:
+        Joystick: !!robotbuilder.data.properties.ParentProperty {default: parent,
+          name: Joystick, validators: null, value: PilotLeftJoystick}
+        Button: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id020
+          default: '1'
+          name: Button
+          validators: null
+          value: '4'
+        Command: !!robotbuilder.data.properties.TypeSelectionProperty
+          default: None
+          name: Command
+          type: Command
+          validators: *id021
+          value: OpenGripperCommand
+        When to Run: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id022
+          default: whileHeld
+          name: When to Run
+          validators: null
+          value: whenPressed
+      Base: Joystick Button
+      Name: OpenGripperButtonB
     Properties:
       Number: !!robotbuilder.data.properties.ChoicesProperty
         choices: &id023 ['0', '1', '2', '3', '4', '5']

@@ -96,7 +96,7 @@ public class Gripper extends PIDSubsystem {
     
     public void Close()
     {
-    	gripperMotor.set(-0.25);
+    	gripperMotor.set(-0.4);
     }
     
     public void Stop()
@@ -109,7 +109,7 @@ public class Gripper extends PIDSubsystem {
     }
     
     public boolean ShouldStopInward() {
-    	double limitCurrent = RobotMap.prefs.getDouble("Gripper_CurrentLimit", 10);
+    	double limitCurrent = RobotMap.prefs.getDouble("Gripper_CurrentLimit", 20);
     	
     	return getGripperMotorCurrent() > limitCurrent || gripperClosedLimitSwitch.get();
     }
