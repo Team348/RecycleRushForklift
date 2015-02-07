@@ -50,6 +50,7 @@ public class  HomeElevatorCommand extends Command {
     		if(bottomWaitTimer.get() > 0.3)
     		{
     			Robot.elevator.resetEncoder();
+    			Robot.elevator.SetDesiredPositionToCurrent();
     			finished = true;
     		}
     	}

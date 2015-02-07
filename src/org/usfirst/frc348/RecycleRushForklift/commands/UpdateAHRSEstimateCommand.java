@@ -39,21 +39,9 @@ public class  UpdateAHRSEstimateCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Vector3D mag = Robot.attitudeAndHeadingReferenceSystem.ReadMagneticField();
+    	Vector3D mag = Robot.attitudeAndHeadingReferenceSystem.UpdateAHRSEstimate();
     	Vector3D rot = Robot.attitudeAndHeadingReferenceSystem.ReadAngularVelocity();
-    	
-    	if(mag != null)
-    	{
-	    	double headingDegrees = Math.atan2(mag.getY(), mag.getX()) * 180.0 / Math.PI;
-	    	double headingDegreesCartoConvention = 90 - headingDegrees;
-	    	
-	    	SmartDashboard.putNumber("Magnetic Heading (deg)", headingDegreesCartoConvention);
-	    	SmartDashboard.putBoolean("Magnetometer OK?", true);
-    	}
-    	else {
-    		SmartDashboard.putBoolean("Magnetometer OK?", false);
-    	}
-    	
+    	    	
     	if(rot != null)
     	{
     		SmartDashboard.putNumber("Angular Velocity Z (rad/s)", rot.getZ());

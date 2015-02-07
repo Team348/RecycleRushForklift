@@ -11,7 +11,10 @@
 
 package org.usfirst.frc348.RecycleRushForklift.commands;
 
+import edu.wpi.first.wpilibj.Joystick.ButtonType;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc348.RecycleRushForklift.Robot;
 
 /**
@@ -35,7 +38,16 @@ public class  ManualDriveCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivePlatform.mecanumDrive(Robot.oi.pilotRightJoystick.getX(), Robot.oi.pilotRightJoystick.getY(), Robot.oi.pilotLeftJoystick.getZ());
+    	if(Robot.oi.copilotJoystick.getRawButton(5))
+    	{
+    		// override to robot-relative drive
+    		Robot.drivePlatform.mecanumDriveRobotRelative(Robot.oi.pilotRightJoystick.getX(), Robot.oi.pilotRightJoystick.getY(), Robot.oi.pilotLeftJoystick.getZ());
+    		SmartDashboard.putString("DriveMode", "Robot Relative");
+    	}
+    	else {
+    		Robot.drivePlatform.mecanumDriveFieldRelative(Robot.oi.pilotRightJoystick.getX(), Robot.oi.pilotRightJoystick.getY(), Robot.oi.pilotLeftJoystick.getZ());
+    		SmartDashboard.putString("DriveMode", "Field Relative");
+    	}
     	
     }
 

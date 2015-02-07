@@ -11,6 +11,7 @@
 
 package org.usfirst.frc348.RecycleRushForklift.subsystems;
 
+import org.usfirst.frc348.RecycleRushForklift.Robot;
 import org.usfirst.frc348.RecycleRushForklift.RobotMap;
 import org.usfirst.frc348.RecycleRushForklift.commands.*;
 import edu.wpi.first.wpilibj.*;
@@ -45,9 +46,14 @@ public class DrivePlatform extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void mecanumDrive(double velX, double velY, double velTheta)
+    public void mecanumDriveRobotRelative(double velX, double velY, double velTheta)
     {
     	driveSystem.mecanumDrive_Cartesian(velX, velY, velTheta, 0);
+    }
+    
+    public void mecanumDriveFieldRelative(double velX, double velY, double velTheta)
+    {
+    	driveSystem.mecanumDrive_Cartesian(velX, velY, velTheta, Robot.attitudeAndHeadingReferenceSystem.GetHeading());
     }
     
     public double getCurrent(int channel)

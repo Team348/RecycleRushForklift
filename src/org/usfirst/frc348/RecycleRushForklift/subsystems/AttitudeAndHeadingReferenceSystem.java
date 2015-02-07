@@ -10,10 +10,12 @@
 
 package org.usfirst.frc348.RecycleRushForklift.subsystems;
 
+import org.usfirst.frc348.RecycleRushForklift.Robot;
 import org.usfirst.frc348.RecycleRushForklift.RobotMap;
 import org.usfirst.frc348.RecycleRushForklift.commands.*;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.I2C;
 import org.apache.commons.math3.geometry.euclidean.threed.*;
 
@@ -31,6 +33,8 @@ public class AttitudeAndHeadingReferenceSystem extends Subsystem {
     private double gyroScale; // rad/s per lsb
     private double magnetometerScale; // T per lsb
     private Rotation sensorFrameToVehicleFrame = Rotation.IDENTITY;
+    
+    private double headingDegreesCartoConvention = 0;
     
     enum GyroRegister
     {
@@ -338,7 +342,7 @@ public class AttitudeAndHeadingReferenceSystem extends Subsystem {
     	
     	if(data == null) return null;
     	
-    	return ReadScaleTransform(magnetometerScale, data);
+		return ReadScaleTransform(magnetometerScale, data);
     }
     
     public Vector3D ReadAngularVelocity()
@@ -376,12 +380,40 @@ public class AttitudeAndHeadingReferenceSystem extends Subsystem {
     	double[] result = new double[3];
     	for(int i = 0; i < 3; i++)
     	{
-    		short value = (short)(littleEndianBytes[2*i] | (littleEndianBytes[2*i + 1] << 8));
+    		short value = (short)((littleEndianBytes[2*i] & 0xff) | (littleEndianBytes[2*i + 1] << 8));
     		result[i] = scale * value;
     	}
     	
     	Vector3D sensorFrame = new Vector3D(result);
     	return sensorFrameToVehicleFrame.applyTo(sensorFrame);
+    }
+    
+    public double GetHeading()
+    {
+    	return this.headingDegreesCartoConvention;
+    }
+    
+    public Vector3D UpdateAHRSEstimate() 
+    {
+    	Vector3D mag = ReadMagneticField();
+    	
+    	if(mag != null)
+    	{
+	    	double headingDegrees = Math.atan2(mag.getY(), mag.getX()) * 180.0 / Math.PI;
+	    	double headingDegreesCartoConvention = 90 - headingDegrees;
+	    	
+	    	if(headingDegreesCartoConvention < 0) headingDegreesCartoConvention += 360;
+	    	
+	    	this.headingDegreesCartoConvention = headingDegreesCartoConvention;
+	    	
+	    	SmartDashboard.putNumber("Magnetic Heading (deg)", headingDegreesCartoConvention);
+	    	SmartDashboard.putBoolean("Magnetometer OK?", true);
+    	}
+    	else {
+    		SmartDashboard.putBoolean("Magnetometer OK?", false);
+    	}
+    	
+    	return mag;
     }
     
     public void InitializeSensors()
@@ -390,7 +422,7 @@ public class AttitudeAndHeadingReferenceSystem extends Subsystem {
     	
     	InitializeGyro(GyroScale.G_SCALE_500DPS, GyroOutputDataRate.G_ODR_95_BW_25);
     	InitializeAccelerometer(AccelerometerScale.A_SCALE_4G, AccelerometerOutputDataRate.A_ODR_50, AccelerometerBandwidth.A_ABW_50);
-    	InitializeMagnetometer(MagnetometerScale.M_SCALE_2GS, MagnetometerOutputDataRate.M_ODR_50);
+    	InitializeMagnetometer(MagnetometerScale.M_SCALE_2GS, MagnetometerOutputDataRate.M_ODR_100);
     }
     
     public void InitializeGyro(GyroScale scale, GyroOutputDataRate odr)
@@ -553,7 +585,7 @@ public class AttitudeAndHeadingReferenceSystem extends Subsystem {
     		break;
     	}
     	
-    	magnetometerScale = (0.0001 * gauss) / 32768.0; // scale in Tesla per LSB
+    	magnetometerScale = (100000.0 * gauss) / 32768.0; // scale in nanoTesla per LSB
     }
     
     public void InitializeAccelerometer(AccelerometerScale scale, AccelerometerOutputDataRate odr, AccelerometerBandwidth bw) 
