@@ -52,8 +52,8 @@ public class Elevator extends PIDSubsystem {
         //                  to
         // enable() - Enables the PID controller.
        
-        double p = RobotMap.prefs.getDouble("Elevator_P", 0.08);
-        double i = RobotMap.prefs.getDouble("Elevator_I", 0.004);
+        double p = RobotMap.prefs.getDouble("Elevator_P", 0.15);
+        double i = RobotMap.prefs.getDouble("Elevator_I", 0.005);
         double d = RobotMap.prefs.getDouble("Elevator_D", 0.0);
         
        getPIDController().setPID(p, i, d);

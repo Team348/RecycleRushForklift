@@ -124,8 +124,7 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
         LiveWindow.run();
         UpdateSmartDashboard();
-        ServiceSubsystems();
-        elevator.SetDesiredPositionToCurrent();
+        gripper.ServiceCurrentMonitoring();
     }
     
     private void UpdateSmartDashboard()
