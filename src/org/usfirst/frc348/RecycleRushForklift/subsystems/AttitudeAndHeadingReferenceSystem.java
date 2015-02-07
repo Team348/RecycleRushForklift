@@ -10,6 +10,9 @@
 
 package org.usfirst.frc348.RecycleRushForklift.subsystems;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
 import org.usfirst.frc348.RecycleRushForklift.Robot;
 import org.usfirst.frc348.RecycleRushForklift.RobotMap;
 import org.usfirst.frc348.RecycleRushForklift.commands.*;
@@ -35,6 +38,8 @@ public class AttitudeAndHeadingReferenceSystem extends Subsystem {
     private Rotation sensorFrameToVehicleFrame = Rotation.IDENTITY;
     
     private double headingDegreesCartoConvention = 0;
+    
+    private Vector3D magnetometerOffset;
     
     enum GyroRegister
     {
@@ -342,6 +347,18 @@ public class AttitudeAndHeadingReferenceSystem extends Subsystem {
     	
     	if(data == null) return null;
     	
+		Vector3D result = ReadScaleTransform(magnetometerScale, data);
+		magnetometerOffset = new Vector3D(-5250, 4250, 0);
+		result = result.subtract(magnetometerOffset);
+		
+		return result;
+    }
+    
+    public Vector3D ReadMagnetometerOffset() {
+    	byte[] data = ReadMultipleRegisters(AccelerometerAndMagnetometerRegister.OFFSET_X_L_M, 6);
+    	
+    	if(data == null) return null;
+    	
 		return ReadScaleTransform(magnetometerScale, data);
     }
     
@@ -378,10 +395,11 @@ public class AttitudeAndHeadingReferenceSystem extends Subsystem {
     private Vector3D ReadScaleTransform(double scale, byte[] littleEndianBytes)
     {
     	double[] result = new double[3];
+    	ByteBuffer bb = ByteBuffer.wrap(littleEndianBytes);
+    	bb.order(ByteOrder.LITTLE_ENDIAN);
     	for(int i = 0; i < 3; i++)
     	{
-    		short value = (short)((littleEndianBytes[2*i] & 0xff) | (littleEndianBytes[2*i + 1] << 8));
-    		result[i] = scale * value;
+    		result[i] = bb.getShort();
     	}
     	
     	Vector3D sensorFrame = new Vector3D(result);
@@ -416,7 +434,7 @@ public class AttitudeAndHeadingReferenceSystem extends Subsystem {
     	return mag;
     }
     
-    public void InitializeSensors()
+	public void InitializeSensors()
     {
     	// sensible defaults for FRC
     	
@@ -586,6 +604,8 @@ public class AttitudeAndHeadingReferenceSystem extends Subsystem {
     	}
     	
     	magnetometerScale = (100000.0 * gauss) / 32768.0; // scale in nanoTesla per LSB
+    	
+    	magnetometerOffset = ReadMagnetometerOffset();
     }
     
     public void InitializeAccelerometer(AccelerometerScale scale, AccelerometerOutputDataRate odr, AccelerometerBandwidth bw) 

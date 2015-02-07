@@ -42,6 +42,11 @@ public class  UpdateAHRSEstimateCommand extends Command {
     	Vector3D mag = Robot.attitudeAndHeadingReferenceSystem.UpdateAHRSEstimate();
     	Vector3D rot = Robot.attitudeAndHeadingReferenceSystem.ReadAngularVelocity();
     	    	
+    	if(mag != null)
+    	{
+    		SmartDashboard.putNumber("Mag X", mag.getX());
+    		SmartDashboard.putNumber("Mag Y", mag.getY());
+    	}
     	if(rot != null)
     	{
     		SmartDashboard.putNumber("Angular Velocity Z (rad/s)", rot.getZ());

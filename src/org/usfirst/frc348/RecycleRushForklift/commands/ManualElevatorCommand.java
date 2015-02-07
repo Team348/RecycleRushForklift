@@ -38,7 +38,7 @@ public class  ManualElevatorCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	double max = 52;
+    	double max = 55;
     	double min = 0;
     	
     	double unscaled = Robot.oi.getCopilotJoystick().getZ();
