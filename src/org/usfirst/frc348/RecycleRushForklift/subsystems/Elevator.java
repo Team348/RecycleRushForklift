@@ -132,7 +132,7 @@ public class Elevator extends PIDSubsystem {
         elevatorMotor2.pidWrite(output);
         if((isAtLowerLimit() && output < 0)
            ||
-           (isAtUpperLimit() && output > 0)
+           (isAtUpperLimit() && output > 0))
         {
         	elevatorMotor1.set(0);
         	elevatorMotor2.set(0);
